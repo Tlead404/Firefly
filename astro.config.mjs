@@ -354,7 +354,20 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 		server: {
 			watch: {
-				ignored: ["**/package/**", "**/Firefly-docs/**"],
+				ignored: [
+					"**/package/**",
+					"**/Firefly-docs/**",
+					// Windows 盘根受保护目录：pnpm store 位于 E:\.pnpm-store，
+					// node_modules 的符号链接会把 Vite 监听范围带到 E:\ 根，
+					// 扫描到这些目录时 lstat 会抛 EINVAL 直接崩掉 dev server。
+					"**/System Volume Information",
+					"**/System Volume Information/**",
+					"**/$RECYCLE.BIN",
+					"**/$RECYCLE.BIN/**",
+					"**/360RecycleBin",
+					"**/360RecycleBin/**",
+					"**/.pnpm-store/**",
+				],
 			},
 		},
 		resolve: {
