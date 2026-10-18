@@ -1,0 +1,78 @@
+# Pages CMS 配置（https://app.pagescms.org）
+# 说明：登录后选择仓库 Tlead404/Firefly，即可在浏览器里写文章、传图片、点发布。
+# 每次保存都会直接提交到 master 分支，Cloudflare 随即自动重新构建。
+
+# 上传的图片存到 public/uploads，页面里引用为 /uploads/xxx.jpg
+media:
+  input: public/uploads
+  output: /uploads
+  extensions: [png, jpg, jpeg, webp, avif, gif]
+  rename: random
+
+content:
+  - name: posts
+    label: 文章
+    type: collection
+    path: src/content/posts
+    format: yaml-frontmatter
+    filename:
+      template: "{primary}.md"
+      field: create
+    view:
+      primary: title
+      fields: [title, published, draft]
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+        options:
+          maxlength: 120
+
+      - name: published
+        label: 发布日期
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: description
+        label: 摘要
+        type: text
+        description: 显示在文章列表里的简介，一两句话即可
+
+      - name: image
+        label: 封面图
+        type: image
+        description: 可选。上传后会作为文章头图和列表缩略图
+
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+        description: 每行一个，或点加号添加
+
+      - name: category
+        label: 分类
+        type: string
+
+      - name: series
+        label: 系列
+        type: string
+        description: 可选。同一系列的文章会归到一起
+
+      - name: draft
+        label: 草稿
+        type: boolean
+        description: 勾选后不会发布到线上
+
+      - name: pinned
+        label: 置顶
+        type: boolean
+
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
