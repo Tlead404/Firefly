@@ -1,4 +1,5 @@
 import { setMaxListeners } from "node:events";
+import { fileURLToPath } from "node:url";
 import cloudflare from "@astrojs/cloudflare";
 import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
@@ -57,7 +58,24 @@ import { collectUsedFontCssVars } from "./src/utils/fontHelper";
 
 if (process.env.NODE_ENV === "development") {
 	setMaxListeners(20);
+
+	// Windows 兜底：Vite 的文件监听器偶尔会扫到盘根下的受保护目录
+	// （E:\System Volume Information），chokidar 的 lstat 抛 EINVAL 且无人接管，
+	// 会直接把 dev server 打挂。这里只吞这一种可预期的错误，其余照常抛出。
+	process.on("uncaughtException", (err) => {
+		const p = String(err?.path ?? "");
+		if (err?.code === "EINVAL" && /System Volume Information|\$RECYCLE\.BIN/i.test(p)) {
+			console.warn(`[watch-guard] 忽略受保护目录的监听错误: ${p}`);
+			return;
+		}
+		throw err;
+	});
 }
+
+// 项目根目录（统一成正斜杠小写，供监听器排除判断使用）
+const PROJECT_ROOT = fileURLToPath(new URL(".", import.meta.url))
+	.replace(/\\/g, "/")
+	.toLowerCase();
 
 const adapter = process.env.CF_WORKERS
 	? cloudflare({
@@ -354,20 +372,31 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 		server: {
 			watch: {
-				ignored: [
-					"**/package/**",
-					"**/Firefly-docs/**",
-					// Windows 盘根受保护目录：pnpm store 位于 E:\.pnpm-store，
-					// node_modules 的符号链接会把 Vite 监听范围带到 E:\ 根，
-					// 扫描到这些目录时 lstat 会抛 EINVAL 直接崩掉 dev server。
-					"**/System Volume Information",
-					"**/System Volume Information/**",
-					"**/$RECYCLE.BIN",
-					"**/$RECYCLE.BIN/**",
-					"**/360RecycleBin",
-					"**/360RecycleBin/**",
-					"**/.pnpm-store/**",
-				],
+				// 用函数式 matcher，不用 glob：
+				// 在 Windows 上 `**/xxx` 形式的 glob 会在解析时牵扯到盘根，
+				// 使监听器去 lstat E:\System Volume Information 并抛 EINVAL 崩溃。
+				ignored: (p) => {
+					const raw = String(p).replace(/\\/g, "/");
+					const lower = raw.toLowerCase();
+
+					if (
+						lower.includes("system volume information") ||
+						lower.includes("$recycle.bin") ||
+						lower.includes("360recyclebin") ||
+						lower.includes(".pnpm-store") ||
+						lower.includes("/package/") ||
+						lower.includes("/firefly-docs/")
+					) {
+						return true;
+					}
+
+					// 项目目录之外的绝对路径一律不监听（盘根扫描就是这么来的）
+					if (/^[a-z]:\//.test(lower) || raw.startsWith("/")) {
+						return !lower.startsWith(PROJECT_ROOT);
+					}
+
+					return false;
+				},
 			},
 		},
 		resolve: {
