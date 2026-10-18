@@ -1,27 +1,17 @@
-# 关于我 / About Me
+# 关于我
 
-你好！我是 **夏叶** ，一个在数字世界中默默无闻的一片叶子。
+你好，我是 **点绛唇**。
 
-## 🛠️ 关于本站
+「恋江春」和「点绛唇」都是词牌名。用它们做站名和笔名，大概是因为喜欢那种「一句话里藏着一段光阴」的写法。
 
-这个网站使用 **Astro** 框架构建，采用了 [Firefly](https://github.com/CuteLeaf/Firefly) 模板，Firefly 是基于 [Fuwari](https://github.com/saicaca/fuwari) 的二次开发。
+## 关于这个博客
 
-**Firefly** 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。
+这里会放一些读书的碎念、写字的练习，偶尔也许有技术笔记。更新不定时，全凭心情——但既然开了这个头，总归会一直写下去。
 
+## 关于本站
 
-**🖥️在线预览： [Firefly - Demo site](https://firefly.cuteleaf.cn/)**
-
-**📝Firefly使用文档： [https://docs-firefly.cuteleaf.cn](https://docs-firefly.cuteleaf.cn/)**
-
-**⭐Firefly开源地址：[https://github.com/CuteLeaf/Firefly](https://github.com/CuteLeaf/Firefly)** 
-
-**⭐Fuwari开源地址：[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)**
-
-::github{repo="CuteLeaf/Firefly"}
-
-::github{repo="saicaca/fuwari"}
+用 [Astro](https://astro.build) 构建，主题是开源的 [Firefly](https://github.com/CuteLeaf/Firefly)，托管在 Cloudflare Pages。
 
 ---
 
-*感谢你的来访！希望在这里能找到对你有用的内容！*
-
+若有话说，欢迎在文章下面留言，或者到[留言板](/guestbook/)坐一会儿。
