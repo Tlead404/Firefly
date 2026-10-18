@@ -1,0 +1,150 @@
+/* ─────────────────────────────────────────────────────────
+   点绛唇＆恋江春 · 水墨编辑风
+   冷墨底 · 纸白字 · 绛红一点
+   经视觉评审修订：收字距、去碎线、红锚归一
+   ───────────────────────────────────────────────────────── */
+
+:root {
+	--ink-accent: #a3222a; /* 绛红 */
+	--ink-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong",
+		"SimSun", serif;
+	--ink-sans: "Source Han Sans SC", "PingFang SC", "Microsoft YaHei",
+		-apple-system, "Segoe UI", sans-serif;
+	--ink-paper: #efe8df;
+}
+
+/* 主标题容器 */
+.banner-title {
+	position: relative;
+	font-family: var(--ink-serif) !important;
+	font-weight: 500 !important;
+	letter-spacing: normal !important;
+	text-indent: 0 !important;
+	text-shadow: none;
+	padding-top: 1.6rem;
+}
+
+/* 天头线：与标题文字等宽，压住标题上缘 */
+.banner-title::before {
+	content: "";
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: min(100%, 32rem);
+	height: 1px;
+	transform: translateX(-50%);
+	background: rgb(239 232 223 / 0.16);
+}
+
+/* 首屏竖界格：抬高一点透明度，让它真的可见 */
+.banner-home-text-overlay::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background-image: repeating-linear-gradient(
+		to right,
+		rgb(239 232 223 / 0.065) 0 1px,
+		transparent 1px 132px
+	);
+	-webkit-mask-image: linear-gradient(
+		to bottom,
+		transparent 0%,
+		#000 20%,
+		#000 80%,
+		transparent 100%
+	);
+	mask-image: linear-gradient(
+		to bottom,
+		transparent 0%,
+		#000 20%,
+		#000 80%,
+		transparent 100%
+	);
+}
+
+/* ── 双词牌并列 ──────────────────────────────────────────
+   同字体、同字号、同字距、同基线；中间一条短绛红杠作分隔
+   ──────────────────────────────────────────────────────── */
+
+.bt-duo {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 0.55rem;
+}
+
+.bt-a,
+.bt-b {
+	font-family: var(--ink-serif) !important;
+	font-weight: 500;
+	font-size: 1em;
+	letter-spacing: 0.04em;
+	color: var(--ink-paper);
+}
+
+/* 唯一红锚：落在「春」字右下、贴基线的一点印泥 */
+/* 分隔：短杠，不再用整字高的竖线 */
+.bt-sep {
+	display: inline-block;
+	align-self: center;
+	width: 2px;
+	height: 0.58em;
+	background: var(--ink-accent);
+	opacity: 0.9;
+	transform: translateY(-0.02em);
+}
+
+/* 题记：收字距、提对比，挂靠到标题下 */
+.banner-subtitle {
+	font-family: var(--ink-serif) !important;
+	font-weight: 300 !important;
+	letter-spacing: 0.1em !important;
+	text-indent: 0.1em;
+	opacity: 0.68;
+	margin-top: 0.9rem;
+	position: relative;
+	padding-bottom: 1.5rem;
+}
+
+/* 题记下方一条等宽细线，和天头线夹成一个版框 */
+.banner-subtitle::after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: 0;
+	width: min(100%, 32rem);
+	height: 1px;
+	transform: translateX(-50%);
+	background: rgb(239 232 223 / 0.16);
+}
+
+/* 首屏链接胶囊：描边而非实心 */
+.banner-home-text-overlay .banner-link {
+	border: 1px solid rgb(255 255 255 / 0.16) !important;
+	background: rgb(255 255 255 / 0.03) !important;
+	border-radius: 2px !important;
+}
+
+/* 选中文字用绛红 */
+::selection {
+	background: rgb(163 34 42 / 0.35);
+	color: inherit;
+}
+
+/* 移动端 */
+@media (max-width: 640px) {
+	.bt-duo {
+		gap: 0.4rem;
+	}
+	.bt-a,
+	.bt-b {
+		letter-spacing: 0.01em;
+	}
+	.banner-subtitle {
+		letter-spacing: 0.06em !important;
+		text-indent: 0.06em;
+	}
+}
+
+
+

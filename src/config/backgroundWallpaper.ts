@@ -2,7 +2,7 @@ import type { BackgroundWallpaperConfig } from "@/types/backgroundWallpaper";
 
 export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	// 壁纸模式："banner" 横幅壁纸，"fullscreen" 全屏壁纸，"overlay" 覆盖透明，"none" 纯色背景无壁纸
-	mode: "banner",
+	mode: "fullscreen",
 	// 是否启用背景视频播放，配置后将在导航栏显示视频播放按钮
 	playerEnable: true,
 	/**
@@ -39,14 +39,12 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 桌面背景图片（支持单张或多张随机）
 		// desktop: "assets/images/DesktopWallpaper/d1.avif",
 		desktop: [
-			"assets/images/Wallpaper/sakura-banner.jpg",
-			"assets/images/Wallpaper/white-rose-banner.jpg",
+			"assets/images/Wallpaper/ink-flat.jpg",
 		],
 		// 移动背景图片（支持单张或多张随机）
 		// mobile: "assets/images/MobileWallpaper/m1.avif",
 		mobile: [
-			"assets/images/Wallpaper/sakura-pink.jpg",
-			"assets/images/Wallpaper/white-rose.jpg",
+			"assets/images/Wallpaper/ink-flat.jpg",
 		],
 		// 背景视频播放地址
 		// 支持单个视频路径（字符串）或多个视频循环（数组，参考上面壁纸配置）
@@ -58,7 +56,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 	// 横幅壁纸和全屏壁纸共享配置
 	common: {
 		// 壁纸遮罩暗度，让横幅文字显示更清晰，0-1之间，值越大越暗
-		dimOpacity: 0.2,
+		dimOpacity: 0.05,
 		// 多视频播放模式："order" 顺序循环，"random" 随机切换（仅当 playerUrl 为数组时生效）
 		playerMode: "random",
 		// 主页横幅文字
@@ -66,13 +64,13 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			// 是否启用主页横幅文字
 			enable: true,
 			// 主页横幅主标题
-			title: "恋江春",
+			title: "点绛唇＆恋江春",
 			// 主页横幅主标题字体大小
-			titleSize: "4.5rem",
+			titleSize: "4.2rem",
 			// 主页横幅副标题
-			subtitle: [""],
+			subtitle: ["昔者仓颉作书，而天雨粟，鬼夜哭"],
 			// 主页横幅副标题字体大小
-			subtitleSize: "1.5rem",
+			subtitleSize: "1.15rem",
 			typewriter: {
 				// 是否启用打字机效果
 				// 打字机开启 → 循环显示所有副标题
@@ -158,17 +156,17 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		zIndex: -1,
 		// 壁纸透明度
 		opacity: 0.8,
-		// 背景模糊度
-		blur: 10,
+		// 背景模糊度（全屏壁纸模式也复用此项，设为 0 保持图片清晰）
+		blur: 0,
 		// 卡片透明度，0-1之间，值越小越透明
 		cardOpacity: 0.6,
 	},
 	// 全屏壁纸模式特有配置
 	// 壁纸模糊度(blur)、卡片透明度(cardOpacity)、层级(zIndex) 复用上方 overlay 模式的配置；
 	// 背景透明度(opacity)不适用（全屏壁纸不透明）；导航栏透明模式由 fullscreen.navbar.transparentMode 控制，脱离 banner 的 navbar 配置
-	fullscreen: {
+		fullscreen: {
 		// 布局模式："classic" 经典文档流全屏壁纸，"hero" 固定全屏首屏壁纸
-		layout: "classic",
+		layout: "hero",
 		// 图片位置
 		position: "center",
 		// 全屏壁纸模式的导航栏配置
@@ -183,10 +181,12 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		blurRamp: {
 			enable: {
 				// 桌面端是否启用模糊渐变
-				desktop: true,
+				desktop: false,
 				// 移动端是否启用模糊渐变
-				mobile: true,
+				mobile: false,
 			},
 		},
 	},
 };
+
+
