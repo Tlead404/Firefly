@@ -15,7 +15,7 @@ set /p name=Filename:
 
 if "%name%"=="" goto cancelled
 
-call pnpm new-post %name%
+call node scripts\new-post.js %name%
 if errorlevel 1 goto failed
 
 echo.

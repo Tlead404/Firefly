@@ -16,7 +16,7 @@ echo.
 
 start "" /b cmd /c "timeout /t 15 /nobreak >nul & start "" http://localhost:4321/"
 
-call pnpm dev
+call node_modules\.bin\astro.cmd dev
 
 echo.
 echo Server stopped.
